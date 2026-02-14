@@ -1,0 +1,11 @@
+﻿<Application x:Class="NetMonitorPro.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:NetMonitorPro.App.Converters"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <converters:PageVisibilityConverter x:Key="PageVisConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Application.Resources>
+</Application>

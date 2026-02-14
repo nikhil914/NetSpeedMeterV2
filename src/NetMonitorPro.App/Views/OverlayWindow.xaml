@@ -1,0 +1,87 @@
+<Window x:Class="NetMonitorPro.App.Views.OverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NetMonitor Pro"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="{Binding IsAlwaysOnTop}"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <Window.Resources>
+        <!-- Glow effect for the text -->
+        <DropShadowEffect x:Key="TextGlow" ShadowDepth="0" BlurRadius="8" Color="#00E676" Opacity="0.4"/>
+        <DropShadowEffect x:Key="UploadGlow" ShadowDepth="0" BlurRadius="8" Color="#42A5F5" Opacity="0.4"/>
+
+        <!-- Context menu style -->
+        <Style TargetType="MenuItem">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Window.Resources>
+
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="👁  Show / Hide Overlay" Click="ToggleOverlay_Click"/>
+            <MenuItem Header="📊 Open Dashboard" Click="OpenDashboard_Click"/>
+            <Separator/>
+            <MenuItem Header="📌 Always On Top" IsCheckable="True" 
+                      IsChecked="{Binding IsAlwaysOnTop, Mode=TwoWay}"/>
+            <MenuItem Header="⚙ Settings" Click="OpenSettings_Click"/>
+            <Separator/>
+            <MenuItem Header="❌ Quit" Command="{Binding QuitApplicationCommand}"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+
+    <!-- Main overlay body -->
+    <Border x:Name="OverlayBorder"
+            CornerRadius="10"
+            Padding="14,8,14,8"
+            Opacity="{Binding BackgroundOpacity}">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#1A1A2E" Offset="0"/>
+                <GradientStop Color="#16213E" Offset="0.5"/>
+                <GradientStop Color="#0F3460" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="2" BlurRadius="15" Color="#000000" Opacity="0.5"/>
+        </Border.Effect>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <!-- Download speed -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
+                <TextBlock Text="↓" FontSize="14" FontWeight="Bold" Foreground="#00E676"
+                           VerticalAlignment="Center" Margin="0,0,4,0"
+                           Effect="{StaticResource TextGlow}"/>
+                <TextBlock Text="{Binding DownloadValue}" FontSize="14" FontWeight="Bold"
+                           Foreground="#00E676" VerticalAlignment="Center"
+                           FontFamily="Cascadia Code, Consolas, Segoe UI"/>
+                <TextBlock Text="{Binding DownloadUnit}" FontSize="9" Foreground="#80E6A0"
+                           VerticalAlignment="Center" Margin="3,2,0,0"
+                           FontFamily="Segoe UI"/>
+            </StackPanel>
+
+            <!-- Separator -->
+            <Border Width="1" Height="18" Background="#334466" Margin="0,0,12,0"
+                    VerticalAlignment="Center"/>
+
+            <!-- Upload speed -->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="↑" FontSize="14" FontWeight="Bold" Foreground="#42A5F5"
+                           VerticalAlignment="Center" Margin="0,0,4,0"
+                           Effect="{StaticResource UploadGlow}"/>
+                <TextBlock Text="{Binding UploadValue}" FontSize="14" FontWeight="Bold"
+                           Foreground="#42A5F5" VerticalAlignment="Center"
+                           FontFamily="Cascadia Code, Consolas, Segoe UI"/>
+                <TextBlock Text="{Binding UploadUnit}" FontSize="9" Foreground="#80B0E0"
+                           VerticalAlignment="Center" Margin="3,2,0,0"
+                           FontFamily="Segoe UI"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>
