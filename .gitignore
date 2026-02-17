@@ -60,3 +60,14 @@ $RECYCLE.BIN/
 *.db-journal
 *.db-shm
 *.db-wal
+
+## Build output & installer
+dist/
+publish/
+installer/
+
+## Code signing certificate (contains private key)
+*.pfx
+
+## Generated icon
+src/logo/*.ico
