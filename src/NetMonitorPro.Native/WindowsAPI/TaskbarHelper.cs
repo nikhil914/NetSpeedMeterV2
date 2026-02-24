@@ -32,6 +32,16 @@ public static class TaskbarHelper
     [DllImport("shell32.dll")]
     private static extern IntPtr SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
 
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
+        int X, int Y, int cx, int cy, uint uFlags);
+
+    private static readonly IntPtr HWND_TOPMOST = new(-1);
+    private const uint SWP_NOMOVE = 0x0002;
+    private const uint SWP_NOSIZE = 0x0001;
+    private const uint SWP_NOACTIVATE = 0x0010;
+
     private const uint ABM_GETTASKBARPOS = 5;
     private const uint ABE_LEFT = 0;
     private const uint ABE_TOP = 1;
@@ -93,5 +103,14 @@ public static class TaskbarHelper
             _ => (screenWidth - overlayWidth - offset - 50,
                   screenHeight - overlayHeight - offset - 50)
         };
+    }
+
+    /// <summary>
+    /// Forces a window to stay on top of all other windows using Win32 API.
+    /// </summary>
+    public static void ForceTopmost(IntPtr hwnd)
+    {
+        SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0,
+            SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
     }
 }

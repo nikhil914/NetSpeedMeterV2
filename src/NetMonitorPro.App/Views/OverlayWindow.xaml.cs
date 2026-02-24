@@ -1,5 +1,7 @@
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Threading;
 using NetMonitorPro.App.ViewModels;
 using NetMonitorPro.Core.Interfaces;
 using NetMonitorPro.Native.WindowsAPI;
@@ -12,6 +14,7 @@ namespace NetMonitorPro.App.Views;
 public partial class OverlayWindow : Window
 {
     private readonly ISettingsService _settings;
+    private DispatcherTimer? _topmostTimer;
 
     public OverlayWindow(OverlayViewModel viewModel, ISettingsService settings)
     {
@@ -34,10 +37,38 @@ public partial class OverlayWindow : Window
             Left = _settings.Settings.OverlayLeft;
             Top = _settings.Settings.OverlayTop;
         }
+
+        // Start a timer that periodically re-asserts Topmost via Win32 API
+        // so the overlay cannot be hidden behind the taskbar or other windows.
+        _topmostTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(2)
+        };
+        _topmostTimer.Tick += OnTopmostTimerTick;
+        _topmostTimer.Start();
+    }
+
+    private void OnTopmostTimerTick(object? sender, EventArgs e)
+    {
+        if (!IsVisible) return;
+
+        // Only force topmost when the setting is enabled
+        if (DataContext is OverlayViewModel vm && vm.IsAlwaysOnTop)
+        {
+            var hwnd = new WindowInteropHelper(this).Handle;
+            if (hwnd != IntPtr.Zero)
+            {
+                TaskbarHelper.ForceTopmost(hwnd);
+            }
+        }
     }
 
     private void OnClosing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
+        // Stop the topmost timer
+        _topmostTimer?.Stop();
+        _topmostTimer = null;
+
         // Save position
         _settings.Settings.OverlayLeft = Left;
         _settings.Settings.OverlayTop = Top;
@@ -108,3 +139,4 @@ public partial class OverlayWindow : Window
         Hide();
     }
 }
+
