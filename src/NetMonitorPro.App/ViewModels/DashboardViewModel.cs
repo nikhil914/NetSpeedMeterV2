@@ -247,6 +247,8 @@ public partial class DashboardViewModel : ObservableObject, IDisposable
             LoadAdapters();
         else if (page == "Settings")
             LoadAvailableAdapters();
+        else if (page == "Usage")
+            _ = LoadDailyUsageAsync();
     }
 
     private void LoadAvailableAdapters()

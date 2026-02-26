@@ -2,10 +2,12 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using NetMonitorPro.App.ViewModels;
 using NetMonitorPro.App.Views;
 using NetMonitorPro.Core.Interfaces;
+using NetMonitorPro.Core.Models;
 using NetMonitorPro.Core.Services;
 using NetMonitorPro.Data.Repositories;
 using H.NotifyIcon;
@@ -21,6 +23,15 @@ public partial class App : Application
     private TaskbarIcon? _trayIcon;
     private OverlayWindow? _overlayWindow;
     private DashboardWindow? _dashboardWindow;
+    private System.Windows.Controls.MenuItem? _showHideMenuItem;
+
+    // Usage history tracking
+    private DispatcherTimer? _usageFlushTimer;
+    private long _accumulatedDown;
+    private long _accumulatedUp;
+    private long _peakDown;
+    private long _peakUp;
+    private readonly object _usageLock = new();
 
     public static ServiceProvider? Services { get; private set; }
 
@@ -46,6 +57,9 @@ public partial class App : Application
         var monitor = _serviceProvider.GetRequiredService<INetworkMonitorService>();
         monitor.StartMonitoring();
 
+        // Subscribe to stats for usage history tracking
+        monitor.StatsUpdated += OnStatsUpdatedForUsage;
+
         // Start alert service (eagerly to begin monitoring)
         _serviceProvider.GetRequiredService<AlertService>();
 
@@ -56,6 +70,59 @@ public partial class App : Application
 
         // Setup system tray icon
         SetupTrayIcon();
+
+        // Start usage flush timer (every 60 seconds, write accumulated stats to DB)
+        _usageFlushTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(60)
+        };
+        _usageFlushTimer.Tick += OnUsageFlushTick;
+        _usageFlushTimer.Start();
+    }
+
+    private void OnStatsUpdatedForUsage(object? sender, NetworkStats stats)
+    {
+        lock (_usageLock)
+        {
+            _accumulatedDown += stats.DownloadBytesPerSecond;
+            _accumulatedUp += stats.UploadBytesPerSecond;
+            _peakDown = Math.Max(_peakDown, stats.DownloadBytesPerSecond);
+            _peakUp = Math.Max(_peakUp, stats.UploadBytesPerSecond);
+        }
+    }
+
+    private async void OnUsageFlushTick(object? sender, EventArgs e)
+    {
+        long down, up, peakD, peakU;
+        lock (_usageLock)
+        {
+            down = _accumulatedDown;
+            up = _accumulatedUp;
+            peakD = _peakDown;
+            peakU = _peakUp;
+            _accumulatedDown = 0;
+            _accumulatedUp = 0;
+            _peakDown = 0;
+            _peakUp = 0;
+        }
+
+        if (down == 0 && up == 0) return;
+
+        try
+        {
+            var db = _serviceProvider?.GetService<DatabaseService>();
+            var monitor = _serviceProvider?.GetService<INetworkMonitorService>();
+            if (db == null) return;
+
+            var adapterName = monitor?.LatestStats?.AdapterName ?? "Unknown";
+            var today = DateTime.Today.ToString("yyyy-MM-dd");
+
+            await db.UpsertDailyUsageAsync(today, adapterName, down, up, peakD, peakU);
+        }
+        catch
+        {
+            // DB write failed — skip this flush
+        }
     }
 
     private static void ConfigureServices(IServiceCollection services)
@@ -123,9 +190,14 @@ public partial class App : Application
     {
         var menu = new System.Windows.Controls.ContextMenu();
 
-        var showHide = new System.Windows.Controls.MenuItem { Header = "👁  Show / Hide Overlay" };
-        showHide.Click += (_, _) => ToggleOverlayVisibility();
-        menu.Items.Add(showHide);
+        _showHideMenuItem = new System.Windows.Controls.MenuItem
+        {
+            Header = "👁  Show / Hide Overlay",
+            IsCheckable = true,
+            IsChecked = true // Overlay starts visible
+        };
+        _showHideMenuItem.Click += (_, _) => ToggleOverlayVisibility();
+        menu.Items.Add(_showHideMenuItem);
 
         var dashboard = new System.Windows.Controls.MenuItem { Header = "📊  Open Dashboard" };
         dashboard.Click += (_, _) => OpenDashboard();
@@ -166,14 +238,25 @@ public partial class App : Application
             _overlayWindow.Hide();
         else
             _overlayWindow.Show();
+
+        // Update tray checkmark to reflect current visibility
+        if (_showHideMenuItem != null)
+            _showHideMenuItem.IsChecked = _overlayWindow.IsVisible;
     }
 
     private void ShutdownApp()
     {
+        // Stop usage timer
+        _usageFlushTimer?.Stop();
+
+        // Unsubscribe from stats
+        var monitor = _serviceProvider?.GetService<INetworkMonitorService>();
+        if (monitor != null)
+            monitor.StatsUpdated -= OnStatsUpdatedForUsage;
+
         var settings = _serviceProvider?.GetService<ISettingsService>();
         settings?.Save();
 
-        var monitor = _serviceProvider?.GetService<INetworkMonitorService>();
         monitor?.Dispose();
 
         var db = _serviceProvider?.GetService<DatabaseService>();
@@ -187,8 +270,10 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
+        _usageFlushTimer?.Stop();
         _trayIcon?.Dispose();
         _serviceProvider?.Dispose();
         base.OnExit(e);
     }
 }
+
