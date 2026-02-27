@@ -27,7 +27,7 @@
 ## 🚀 Features
 
 ### 📊 Real-Time Floating Overlay
-- **Always-on-top** speed widget that displays live download (↓) and upload (↑) speeds
+- **Always-on-top** speed widget that displays live download (↓) and upload (↑) speeds — enforced via Win32 `SetWindowPos(HWND_TOPMOST)` every 2 seconds so the overlay never gets buried behind the taskbar or other apps
 - **Draggable** — click and drag to reposition anywhere on screen
 - **Taskbar-aware snapping** — auto-positions near the taskbar (supports all taskbar positions: top, bottom, left, right)
 - **Adjustable opacity** — slider to control overlay transparency (30%–100%)
@@ -83,7 +83,7 @@ A multi-page dashboard with sidebar navigation:
 | Setting | Description | Default |
 |---------|-------------|---------|
 | Always on Top | Keep overlay above all windows | ✅ On |
-| Launch on Startup | Auto-start with Windows | ❌ Off |
+| Launch on Startup | Auto-start with Windows via Registry (`HKCU\...\Run`) | ❌ Off |
 | Start Minimized | Launch to tray without showing overlay | ❌ Off |
 | Click-Through | Pass mouse clicks through overlay | ❌ Off |
 | Network Adapter | Select which adapter to monitor (or auto-detect) | Auto |
@@ -100,7 +100,7 @@ A multi-page dashboard with sidebar navigation:
 - **Custom tray icon** — uses the app's branded PNG icon (with fallback to generated icon)
 - **Double-click** to toggle overlay visibility
 - **Right-click context menu**:
-  - 👁 Show / Hide Overlay
+  - 👁 Show / Hide Overlay *(checkmark ✓ indicates current visibility state)*
   - 📊 Open Dashboard
   - ❌ Quit
 - Runs minimized in the tray when overlay is hidden
@@ -141,7 +141,7 @@ NetMonitorPro.sln
 | **Database** | SQLite via sqlite-net-pcl |
 | **Serialization** | Newtonsoft.Json |
 | **DI Container** | Microsoft.Extensions.DependencyInjection 8.0.1 |
-| **Native Interop** | P/Invoke (Shell32 APPBARDATA) |
+| **Native Interop** | P/Invoke (Shell32 APPBARDATA, User32 SetWindowPos) |
 
 ---
 
@@ -168,6 +168,13 @@ dotnet build
 # Run the application
 dotnet run --project src/NetMonitorPro.App
 ```
+
+### Quick Build Scripts (Double-Click)
+
+| Script | What it does |
+|--------|--------------|
+| **`build.bat`** | Publishes a self-contained single-file EXE to `dist/` and opens the folder |
+| **`build_installer.bat`** | Publishes EXE + builds Inno Setup installer to `installer/NetMonitorPro_Setup.exe` |
 
 ### Publish (Self-Contained)
 
