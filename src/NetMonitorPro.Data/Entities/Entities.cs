@@ -21,6 +21,27 @@ public class DailyUsage
     public int TotalConnections { get; set; }
 }
 
+[Table("HourlyUsage")]
+public class HourlyUsage
+{
+    [PrimaryKey, AutoIncrement]
+    public int Id { get; set; }
+
+    [Indexed(Name = "IX_HourlyUsage_DateHourAdapter", Order = 1, Unique = true)]
+    public string Date { get; set; } = string.Empty; // YYYY-MM-DD
+
+    [Indexed(Name = "IX_HourlyUsage_DateHourAdapter", Order = 2, Unique = true)]
+    public int Hour { get; set; } // 0-23
+
+    [Indexed(Name = "IX_HourlyUsage_DateHourAdapter", Order = 3, Unique = true)]
+    public string AdapterName { get; set; } = string.Empty;
+
+    public long BytesDownloaded { get; set; }
+    public long BytesUploaded { get; set; }
+    public long PeakDownloadSpeed { get; set; }
+    public long PeakUploadSpeed { get; set; }
+}
+
 [Table("SessionLog")]
 public class SessionLog
 {
