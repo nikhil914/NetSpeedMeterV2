@@ -39,5 +39,9 @@ public class AppSettings
     public bool AlertOnDisconnect { get; set; } = true;
 
     // Theme
+    public string SelectedTheme { get; set; } = "Default";
     public bool DarkMode { get; set; } = true;
+
+    // Speed display
+    public bool SpeedUnitBits { get; set; } = false; // false = Bytes/s, true = bits/s
 }
