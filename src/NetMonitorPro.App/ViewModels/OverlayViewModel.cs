@@ -62,16 +62,17 @@ public partial class OverlayViewModel : ObservableObject, IDisposable
         if ((now - _lastUiUpdate).TotalMilliseconds < 200) return;
         _lastUiUpdate = now;
 
-        var (dlVal, dlUnit) = NetworkStats.FormatSpeedParts(stats.DownloadBytesPerSecond);
-        var (ulVal, ulUnit) = NetworkStats.FormatSpeedParts(stats.UploadBytesPerSecond);
+        var useBits = _settings.Settings.SpeedUnitBits;
+        var (dlVal, dlUnit) = NetworkStats.FormatSpeedParts(stats.DownloadBytesPerSecond, useBits);
+        var (ulVal, ulUnit) = NetworkStats.FormatSpeedParts(stats.UploadBytesPerSecond, useBits);
 
         DownloadValue = dlVal.ToString("F1");
         DownloadUnit = dlUnit;
         UploadValue = ulVal.ToString("F1");
         UploadUnit = ulUnit;
 
-        DownloadSpeed = stats.FormattedDownloadSpeed;
-        UploadSpeed = stats.FormattedUploadSpeed;
+        DownloadSpeed = NetworkStats.FormatSpeed(stats.DownloadBytesPerSecond, useBits);
+        UploadSpeed = NetworkStats.FormatSpeed(stats.UploadBytesPerSecond, useBits);
     }
 
     partial void OnIsAlwaysOnTopChanged(bool value)
