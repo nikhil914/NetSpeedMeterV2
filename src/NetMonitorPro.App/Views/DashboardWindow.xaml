@@ -6,13 +6,13 @@
         Width="1100" Height="700"
         MinWidth="900" MinHeight="550"
         WindowStartupLocation="CenterScreen"
-        Background="#0D1117">
+        Background="{DynamicResource WindowBg}">
 
     <Window.Resources>
         <!-- Sidebar button style -->
         <Style x:Key="SidebarButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#8B949E"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="FontSize" Value="13"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -29,8 +29,8 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#1C2333"/>
-                                <Setter Property="Foreground" Value="#E6EDF3"/>
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource SidebarHoverBg}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -40,10 +40,126 @@
 
         <!-- Card style -->
         <Style x:Key="Card" TargetType="Border">
-            <Setter Property="Background" Value="#161B22"/>
+            <Setter Property="Background" Value="{DynamicResource CardBg}"/>
             <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="Padding" Value="16"/>
             <Setter Property="Margin" Value="6"/>
+        </Style>
+
+        <!-- Mini card style -->
+        <Style x:Key="MiniCard" TargetType="Border">
+            <Setter Property="Background" Value="{DynamicResource MiniCardBg}"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+
+        <!-- Time range toggle button -->
+        <Style x:Key="TimeRangeButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ButtonBg}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonHoverBg}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Action button style (green) -->
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ActionBg}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ActionHoverBg}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Theme card button style -->
+        <Style x:Key="ThemeCardButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource ButtonBg}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}"
+                                CornerRadius="8" Padding="{TemplateBinding Padding}"
+                                BorderThickness="2" BorderBrush="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ButtonHoverBg}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentGreen}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Section header style -->
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <!-- Stat label -->
+        <Style x:Key="StatLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+        </Style>
+
+        <!-- Stat value -->
+        <Style x:Key="StatValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Cascadia Code, Consolas"/>
+            <Setter Property="Margin" Value="0,4,0,0"/>
         </Style>
     </Window.Resources>
 
@@ -54,13 +170,13 @@
         </Grid.ColumnDefinitions>
 
         <!-- ═══════════ SIDEBAR ═══════════ -->
-        <Border Grid.Column="0" Background="#0D1117" BorderBrush="#21262D" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" Background="{DynamicResource SidebarBg}" BorderBrush="{DynamicResource SidebarBorder}" BorderThickness="0,0,1,0">
             <DockPanel>
                 <!-- App title -->
                 <StackPanel DockPanel.Dock="Top" Margin="16,20,16,24">
-                    <TextBlock Text="NetMonitor" FontSize="20" FontWeight="Bold" Foreground="#00E676"
+                    <TextBlock Text="NetMonitor" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource AccentGreen}"
                                FontFamily="Segoe UI"/>
-                    <TextBlock Text="PRO" FontSize="10" FontWeight="Bold" Foreground="#42A5F5"
+                    <TextBlock Text="PRO" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource AccentBlue}"
                                Margin="0,-2,0,0"/>
                 </StackPanel>
 
@@ -86,7 +202,7 @@
 
                 <!-- Header -->
                 <TextBlock Text="{Binding CurrentPage}" FontSize="24" FontWeight="SemiBold"
-                           Foreground="#E6EDF3" Margin="0,0,0,16" FontFamily="Segoe UI"/>
+                           Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,16" FontFamily="Segoe UI"/>
 
                 <!-- ────── OVERVIEW PAGE ────── -->
                 <StackPanel Visibility="{Binding CurrentPage, Converter={StaticResource PageVisConverter}, ConverterParameter=Overview}"
@@ -97,44 +213,36 @@
                         <!-- Download speed card -->
                         <Border Style="{StaticResource Card}">
                             <StackPanel>
-                                <TextBlock Text="DOWNLOAD" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding DownloadSpeed}" FontSize="22" FontWeight="Bold"
-                                           Foreground="#00E676" Margin="0,4,0,0"
-                                           FontFamily="Cascadia Code, Consolas"/>
+                                <TextBlock Text="DOWNLOAD" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding DownloadSpeed}" Style="{StaticResource StatValue}"
+                                           Foreground="{DynamicResource AccentGreen}"/>
                             </StackPanel>
                         </Border>
 
                         <!-- Upload speed card -->
                         <Border Style="{StaticResource Card}">
                             <StackPanel>
-                                <TextBlock Text="UPLOAD" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding UploadSpeed}" FontSize="22" FontWeight="Bold"
-                                           Foreground="#42A5F5" Margin="0,4,0,0"
-                                           FontFamily="Cascadia Code, Consolas"/>
+                                <TextBlock Text="UPLOAD" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding UploadSpeed}" Style="{StaticResource StatValue}"
+                                           Foreground="{DynamicResource AccentBlue}"/>
                             </StackPanel>
                         </Border>
 
                         <!-- Session downloaded card -->
                         <Border Style="{StaticResource Card}">
                             <StackPanel>
-                                <TextBlock Text="SESSION ↓" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding SessionDownloaded}" FontSize="22" FontWeight="Bold"
-                                           Foreground="#BB86FC" Margin="0,4,0,0"
-                                           FontFamily="Cascadia Code, Consolas"/>
+                                <TextBlock Text="SESSION ↓" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding SessionDownloaded}" Style="{StaticResource StatValue}"
+                                           Foreground="{DynamicResource AccentPurple}"/>
                             </StackPanel>
                         </Border>
 
                         <!-- Session uploaded card -->
                         <Border Style="{StaticResource Card}">
                             <StackPanel>
-                                <TextBlock Text="SESSION ↑" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold"/>
-                                <TextBlock Text="{Binding SessionUploaded}" FontSize="22" FontWeight="Bold"
-                                           Foreground="#FF7043" Margin="0,4,0,0"
-                                           FontFamily="Cascadia Code, Consolas"/>
+                                <TextBlock Text="SESSION ↑" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding SessionUploaded}" Style="{StaticResource StatValue}"
+                                           Foreground="{DynamicResource AccentOrange}"/>
                             </StackPanel>
                         </Border>
                     </UniformGrid>
@@ -142,8 +250,7 @@
                     <!-- Real-time speed chart -->
                     <Border Style="{StaticResource Card}">
                         <StackPanel>
-                            <TextBlock Text="Real-Time Speed" FontSize="14" FontWeight="SemiBold"
-                                       Foreground="#E6EDF3" Margin="0,0,0,8"/>
+                            <TextBlock Text="Real-Time Speed" Style="{StaticResource SectionHeader}"/>
                             <lvc:CartesianChart 
                                 Series="{Binding SpeedSeries}"
                                 XAxes="{Binding SpeedXAxes}"
@@ -155,19 +262,304 @@
                     </Border>
                 </StackPanel>
 
-                <!-- ────── USAGE HISTORY PAGE ────── -->
+                <!-- ══════════════════════════════════════════════ -->
+                <!-- ────── USAGE HISTORY PAGE (REDESIGNED) ────── -->
+                <!-- ══════════════════════════════════════════════ -->
                 <StackPanel Visibility="{Binding CurrentPage, Converter={StaticResource PageVisConverter}, ConverterParameter=Usage}">
+
+                    <!-- ── ROW 1: Summary Stats Cards ── -->
+                    <UniformGrid Rows="1" Columns="4" Margin="0,0,0,4">
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="⬇ TODAY DOWNLOADED" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding TodayDownloaded}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentGreen}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="⬆ TODAY UPLOADED" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding TodayUploaded}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentBlue}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="⚡ PEAK DOWN" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding TodayPeakDown}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentOrange}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="⚡ PEAK UP" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding TodayPeakUp}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentPurple}"/>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <!-- ── ROW 2: Extended Summary ── -->
+                    <UniformGrid Rows="1" Columns="4" Margin="0,0,0,4">
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="📅 THIS WEEK ↓" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding WeeklyDownloaded}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentGreen}" FontSize="16"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="📅 THIS WEEK ↑" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding WeeklyUploaded}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentBlue}" FontSize="16"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="📆 THIS MONTH TOTAL" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding MonthlyDownloaded}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentYellow}" FontSize="16"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="📊 AVG DAILY USAGE" Style="{StaticResource StatLabel}"/>
+                                <TextBlock Text="{Binding AvgDailyUsage}" Style="{StaticResource StatValue}" Foreground="{DynamicResource AccentPink}" FontSize="16"/>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <!-- ── ROW 3: Time Range Selector + Chart ── -->
                     <Border Style="{StaticResource Card}">
                         <StackPanel>
-                            <TextBlock Text="Last 30 Days" FontSize="14" FontWeight="SemiBold"
-                                       Foreground="#E6EDF3" Margin="0,0,0,8"/>
+                            <!-- Time range buttons + title -->
+                            <DockPanel Margin="0,0,0,12">
+                                <TextBlock Text="{Binding UsageChartTitle}" Style="{StaticResource SectionHeader}"
+                                           DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Style="{StaticResource TimeRangeButton}" Content="Today"
+                                            Command="{Binding SwitchTimeRangeCommand}" CommandParameter="Today"
+                                            Margin="0,0,4,0"/>
+                                    <Button Style="{StaticResource TimeRangeButton}" Content="Week"
+                                            Command="{Binding SwitchTimeRangeCommand}" CommandParameter="Week"
+                                            Margin="0,0,4,0"/>
+                                    <Button Style="{StaticResource TimeRangeButton}" Content="Month"
+                                            Command="{Binding SwitchTimeRangeCommand}" CommandParameter="Month"/>
+                                </StackPanel>
+                            </DockPanel>
+
                             <lvc:CartesianChart
-                                Series="{Binding DailyUsageSeries}"
-                                XAxes="{Binding DailyXAxes}"
-                                YAxes="{Binding DailyYAxes}"
-                                Height="350"/>
+                                Series="{Binding UsageChartSeries}"
+                                XAxes="{Binding UsageChartXAxes}"
+                                YAxes="{Binding UsageChartYAxes}"
+                                Height="280"
+                                TooltipPosition="Top"/>
                         </StackPanel>
                     </Border>
+
+                    <!-- ── ROW 4: Top Applications ── -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding TopAppsTitle}" Style="{StaticResource SectionHeader}"/>
+
+                            <!-- Column headers -->
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="180"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="110"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="APPLICATION" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="1" Text="DOWNLOAD" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="2" Text="UPLOAD" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="3" Text="TOTAL" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="4" Text="SHARE" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                            </Grid>
+
+                            <Rectangle Fill="{DynamicResource SeparatorColor}" Height="1" Margin="0,0,0,4"/>
+
+                            <ItemsControl ItemsSource="{Binding TopApps}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="180"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="110"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding ProcessName}" Foreground="{DynamicResource TextPrimary}" FontSize="12"
+                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Downloaded}" Foreground="{DynamicResource AccentGreen}" FontSize="12"
+                                                       FontFamily="Cascadia Code, Consolas" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Uploaded}" Foreground="{DynamicResource AccentBlue}" FontSize="12"
+                                                       FontFamily="Cascadia Code, Consolas" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Total}" Foreground="{DynamicResource TextPrimary}" FontSize="12"
+                                                       FontFamily="Cascadia Code, Consolas" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                            <Grid Grid.Column="4" VerticalAlignment="Center" Margin="0,0,8,0">
+                                                <Border Background="{DynamicResource ButtonBg}" CornerRadius="3" Height="8"/>
+                                                <Border Background="{DynamicResource ActionBg}" CornerRadius="3" Height="8"
+                                                        HorizontalAlignment="Left">
+                                                    <Border.Width>
+                                                        <MultiBinding StringFormat="{}{0}">
+                                                            <Binding Path="Percentage"/>
+                                                        </MultiBinding>
+                                                    </Border.Width>
+                                                </Border>
+                                                <TextBlock Text="{Binding Percentage, StringFormat={}{0:F1}%}" FontSize="9"
+                                                           Foreground="{DynamicResource TextSecondary}" HorizontalAlignment="Right" Margin="0,-2,0,0"/>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!-- Empty state -->
+                            <TextBlock Text="No application data yet. Data will appear after ~30 seconds of monitoring."
+                                       Foreground="{DynamicResource TextMuted}" FontSize="12" FontStyle="Italic" Margin="0,8,0,0"
+                                       Visibility="{Binding TopApps.Count, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ── ROW 5: Two-column layout — Sessions + Events ── -->
+                    <Grid Margin="0,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Session History -->
+                        <Border Grid.Column="0" Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="🕐  Session History" Style="{StaticResource SectionHeader}"/>
+                                <ItemsControl ItemsSource="{Binding RecentSessions}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Style="{StaticResource MiniCard}" Margin="0,0,0,4">
+                                                <StackPanel>
+                                                    <DockPanel>
+                                                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                                                            <TextBlock Text="{Binding StartTime}" Foreground="{DynamicResource TextPrimary}" FontSize="12" FontWeight="SemiBold"/>
+                                                            <TextBlock Text=" → " Foreground="{DynamicResource TextMuted}" FontSize="12"/>
+                                                            <TextBlock Text="{Binding EndTime}" FontSize="12" FontWeight="SemiBold">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Foreground" Value="{DynamicResource TextSecondary}"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                                                <Setter Property="Foreground" Value="{DynamicResource AccentGreen}"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </StackPanel>
+                                                        <TextBlock Text="{Binding Duration}" Foreground="{DynamicResource AccentPurple}" FontSize="11"
+                                                                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                                    </DockPanel>
+                                                    <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                                        <TextBlock Text="↓ " Foreground="{DynamicResource AccentGreen}" FontSize="11"/>
+                                                        <TextBlock Text="{Binding Downloaded}" Foreground="{DynamicResource TextSecondary}" FontSize="11"
+                                                                   FontFamily="Cascadia Code, Consolas"/>
+                                                        <TextBlock Text="  ↑ " Foreground="{DynamicResource AccentBlue}" FontSize="11" Margin="8,0,0,0"/>
+                                                        <TextBlock Text="{Binding Uploaded}" Foreground="{DynamicResource TextSecondary}" FontSize="11"
+                                                                   FontFamily="Cascadia Code, Consolas"/>
+                                                        <TextBlock Text="  Total: " Foreground="{DynamicResource TextMuted}" FontSize="11" Margin="8,0,0,0"/>
+                                                        <TextBlock Text="{Binding DataTransferred}" Foreground="{DynamicResource TextPrimary}" FontSize="11"
+                                                                   FontFamily="Cascadia Code, Consolas" FontWeight="SemiBold"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Activity Log -->
+                        <Border Grid.Column="1" Style="{StaticResource Card}">
+                            <StackPanel>
+                                <TextBlock Text="📋  Activity Log" Style="{StaticResource SectionHeader}"/>
+                                <ItemsControl ItemsSource="{Binding RecentEvents}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Style="{StaticResource MiniCard}" Margin="0,0,0,3">
+                                                <DockPanel>
+                                                    <Border CornerRadius="3" Padding="6,2" Margin="0,0,8,0"
+                                                            VerticalAlignment="Center" DockPanel.Dock="Left">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="Background" Value="{DynamicResource MiniCardBg}"/>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <TextBlock Text="{Binding Severity}" FontSize="9" FontWeight="Bold"
+                                                                   Foreground="{Binding SeverityColor}"/>
+                                                    </Border>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding EventType}" Foreground="{DynamicResource TextPrimary}" FontSize="12" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{Binding Description}" Foreground="{DynamicResource TextSecondary}" FontSize="11"
+                                                                   TextTrimming="CharacterEllipsis"/>
+                                                        <TextBlock Text="{Binding Timestamp}" Foreground="{DynamicResource TextMuted}" FontSize="10"/>
+                                                    </StackPanel>
+                                                </DockPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- ── ROW 6: Speed Test History ── -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="🏎  Speed Test History" Style="{StaticResource SectionHeader}"/>
+
+                            <!-- Column headers -->
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="DATE" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="1" Text="DOWNLOAD" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="2" Text="UPLOAD" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="3" Text="LATENCY" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                                <TextBlock Grid.Column="4" Text="SERVER" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource TextMuted}"/>
+                            </Grid>
+
+                            <Rectangle Fill="{DynamicResource SeparatorColor}" Height="1" Margin="0,0,0,4"/>
+
+                            <ItemsControl ItemsSource="{Binding SpeedTestHistory}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="160"/>
+                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="130"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Date}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Download}" Foreground="{DynamicResource AccentGreen}" FontSize="12"
+                                                       FontFamily="Cascadia Code, Consolas"/>
+                                            <TextBlock Grid.Column="2" Text="{Binding Upload}" Foreground="{DynamicResource AccentBlue}" FontSize="12"
+                                                       FontFamily="Cascadia Code, Consolas"/>
+                                            <TextBlock Grid.Column="3" Text="{Binding Latency}" Foreground="{DynamicResource AccentOrange}" FontSize="12"
+                                                       FontFamily="Cascadia Code, Consolas"/>
+                                            <TextBlock Grid.Column="4" Text="{Binding Server}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <TextBlock Text="No speed tests recorded yet. Run a test from the Speed Test page."
+                                       Foreground="{DynamicResource TextMuted}" FontSize="12" FontStyle="Italic" Margin="0,8,0,0"
+                                       Visibility="{Binding SpeedTestHistory.Count, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                        </StackPanel>
+                    </Border>
+
                 </StackPanel>
 
                 <!-- ────── NETWORK INFO PAGE ────── -->
@@ -179,41 +571,41 @@
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
                                             <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold"
-                                                       Foreground="#E6EDF3"/>
-                                            <Border Background="#21262D" CornerRadius="4" Padding="6,2" Margin="12,0,0,0"
+                                                       Foreground="{DynamicResource TextPrimary}"/>
+                                            <Border Background="{DynamicResource ButtonBg}" CornerRadius="4" Padding="6,2" Margin="12,0,0,0"
                                                     VerticalAlignment="Center">
-                                                <TextBlock Text="{Binding Status}" FontSize="11" Foreground="#8B949E"/>
+                                                <TextBlock Text="{Binding Status}" FontSize="11" Foreground="{DynamicResource TextSecondary}"/>
                                             </Border>
-                                            <Border Background="#0F3460" CornerRadius="4" Padding="6,2" Margin="6,0,0,0"
+                                            <Border Background="{DynamicResource MiniCardBg}" CornerRadius="4" Padding="6,2" Margin="6,0,0,0"
                                                     VerticalAlignment="Center">
-                                                <TextBlock Text="{Binding Type}" FontSize="11" Foreground="#42A5F5"/>
+                                                <TextBlock Text="{Binding Type}" FontSize="11" Foreground="{DynamicResource AccentBlue}"/>
                                             </Border>
                                         </StackPanel>
                                         <UniformGrid Columns="2" Margin="0,4,0,0">
                                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                                <TextBlock Text="IPv4: " Foreground="#8B949E" FontSize="12"/>
-                                                <TextBlock Text="{Binding IPv4Address}" Foreground="#00E676" FontSize="12"/>
+                                                <TextBlock Text="IPv4: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                                <TextBlock Text="{Binding IPv4Address}" Foreground="{DynamicResource AccentGreen}" FontSize="12"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                                <TextBlock Text="Gateway: " Foreground="#8B949E" FontSize="12"/>
-                                                <TextBlock Text="{Binding DefaultGateway}" Foreground="#E6EDF3" FontSize="12"/>
+                                                <TextBlock Text="Gateway: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                                <TextBlock Text="{Binding DefaultGateway}" Foreground="{DynamicResource TextPrimary}" FontSize="12"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                                <TextBlock Text="Link Speed: " Foreground="#8B949E" FontSize="12"/>
-                                                <TextBlock Text="{Binding FormattedSpeed}" Foreground="#E6EDF3" FontSize="12"/>
+                                                <TextBlock Text="Link Speed: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                                <TextBlock Text="{Binding FormattedSpeed}" Foreground="{DynamicResource TextPrimary}" FontSize="12"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                                <TextBlock Text="MAC: " Foreground="#8B949E" FontSize="12"/>
-                                                <TextBlock Text="{Binding MacAddress}" Foreground="#E6EDF3" FontSize="12"/>
+                                                <TextBlock Text="MAC: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                                <TextBlock Text="{Binding MacAddress}" Foreground="{DynamicResource TextPrimary}" FontSize="12"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                                <TextBlock Text="IPv6: " Foreground="#8B949E" FontSize="12"/>
-                                                <TextBlock Text="{Binding IPv6Address}" Foreground="#E6EDF3" FontSize="12"
+                                                <TextBlock Text="IPv6: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                                <TextBlock Text="{Binding IPv6Address}" Foreground="{DynamicResource TextPrimary}" FontSize="12"
                                                            TextTrimming="CharacterEllipsis" MaxWidth="300"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0,4">
-                                                <TextBlock Text="Subnet: " Foreground="#8B949E" FontSize="12"/>
-                                                <TextBlock Text="{Binding IPv4SubnetMask}" Foreground="#E6EDF3" FontSize="12"/>
+                                                <TextBlock Text="Subnet: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                                <TextBlock Text="{Binding IPv4SubnetMask}" Foreground="{DynamicResource TextPrimary}" FontSize="12"/>
                                             </StackPanel>
                                         </UniformGrid>
                                     </StackPanel>
@@ -232,24 +624,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
                                 <Button Content="▶  Run Speed Test" Command="{Binding RunSpeedTestCommand}"
                                         IsEnabled="{Binding IsSpeedTestRunning, Converter={StaticResource InverseBooleanConverter}}"
-                                        Background="#238636" Foreground="White" FontSize="14" FontWeight="SemiBold"
-                                        Padding="20,10" Cursor="Hand" BorderThickness="0">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="Bd" Property="Background" Value="#2EA043"/>
-                                                </Trigger>
-                                                <Trigger Property="IsEnabled" Value="False">
-                                                    <Setter TargetName="Bd" Property="Opacity" Value="0.5"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                        Style="{StaticResource ActionButton}"/>
                                 <Button Content="⏹  Cancel" Command="{Binding CancelSpeedTestCommand}"
                                         Background="#DA3633" Foreground="White" FontSize="13"
                                         Padding="14,10" Margin="12,0,0,0" Cursor="Hand" BorderThickness="0"
@@ -271,8 +646,8 @@
 
                             <!-- Progress -->
                             <ProgressBar Value="{Binding SpeedTestProgress}" Maximum="100" Height="6"
-                                         Background="#21262D" Foreground="#00E676" Margin="0,0,0,8"/>
-                            <TextBlock Text="{Binding SpeedTestStatus}" Foreground="#8B949E" FontSize="12"/>
+                                         Background="{DynamicResource ButtonBg}" Foreground="{DynamicResource AccentGreen}" Margin="0,0,0,8"/>
+                            <TextBlock Text="{Binding SpeedTestStatus}" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
                         </StackPanel>
                     </Border>
 
@@ -280,28 +655,25 @@
                     <UniformGrid Rows="1" Columns="3" Margin="0,4,0,0">
                         <Border Style="{StaticResource Card}">
                             <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="⬇ DOWNLOAD" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="⬇ DOWNLOAD" Style="{StaticResource StatLabel}" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding SpeedTestDownload}" FontSize="28" FontWeight="Bold"
-                                           Foreground="#00E676" HorizontalAlignment="Center" Margin="0,8,0,0"
+                                           Foreground="{DynamicResource AccentGreen}" HorizontalAlignment="Center" Margin="0,8,0,0"
                                            FontFamily="Cascadia Code, Consolas"/>
                             </StackPanel>
                         </Border>
                         <Border Style="{StaticResource Card}">
                             <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="⬆ UPLOAD" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="⬆ UPLOAD" Style="{StaticResource StatLabel}" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding SpeedTestUpload}" FontSize="28" FontWeight="Bold"
-                                           Foreground="#42A5F5" HorizontalAlignment="Center" Margin="0,8,0,0"
+                                           Foreground="{DynamicResource AccentBlue}" HorizontalAlignment="Center" Margin="0,8,0,0"
                                            FontFamily="Cascadia Code, Consolas"/>
                             </StackPanel>
                         </Border>
                         <Border Style="{StaticResource Card}">
                             <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="📶 LATENCY" FontSize="10" Foreground="#8B949E"
-                                           FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                                <TextBlock Text="📶 LATENCY" Style="{StaticResource StatLabel}" HorizontalAlignment="Center"/>
                                 <TextBlock Text="{Binding SpeedTestLatency}" FontSize="28" FontWeight="Bold"
-                                           Foreground="#FF7043" HorizontalAlignment="Center" Margin="0,8,0,0"
+                                           Foreground="{DynamicResource AccentOrange}" HorizontalAlignment="Center" Margin="0,8,0,0"
                                            FontFamily="Cascadia Code, Consolas"/>
                             </StackPanel>
                         </Border>
@@ -311,26 +683,90 @@
                 <!-- ────── SETTINGS PAGE ────── -->
                 <StackPanel Visibility="{Binding CurrentPage, Converter={StaticResource PageVisConverter}, ConverterParameter=Settings}">
 
+                    <!-- ══ Theme Selection ══ -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="🎨  Theme" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,12"/>
+                            <TextBlock Text="Select a color theme for the entire application." Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,0,0,12"/>
+                            <ItemsControl ItemsSource="{Binding AvailableThemes}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Button Content="{Binding}" Style="{StaticResource ThemeCardButton}"
+                                                Command="{Binding DataContext.ApplyThemeCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}"
+                                                Margin="0,0,8,8"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <TextBlock Text="Current theme: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                <TextBlock Text="{Binding SelectedTheme}" Foreground="{DynamicResource AccentGreen}" FontSize="12" FontWeight="Bold"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- ══ Speed Display Unit ══ -->
+                    <Border Style="{StaticResource Card}">
+                        <StackPanel>
+                            <TextBlock Text="📐  Speed Display Unit" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,12"/>
+                            <TextBlock Text="Choose how speed is displayed. Usage data (downloads/uploads) always shows in Bytes." 
+                                       Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,0,0,12"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Command="{Binding ToggleSpeedUnitCommand}" Style="{StaticResource ActionButton}" FontSize="13" Padding="16,8">
+                                    <Button.Content>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="🔄  Switch to "/>
+                                            <TextBlock>
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="Bits/s"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding SpeedUnitBits}" Value="True">
+                                                                <Setter Property="Text" Value="Bytes/s"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Button.Content>
+                                </Button>
+                                <Border Background="{DynamicResource MiniCardBg}" CornerRadius="6" Padding="12,8" Margin="12,0,0,0"
+                                        VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Currently: " Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                                        <TextBlock Text="{Binding SpeedUnitLabel}" Foreground="{DynamicResource AccentGreen}" FontSize="12" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
                     <!-- General section -->
                     <Border Style="{StaticResource Card}">
                         <StackPanel>
-                            <TextBlock Text="⚙  General" FontSize="15" FontWeight="SemiBold" Foreground="#E6EDF3" Margin="0,0,0,12"/>
+                            <TextBlock Text="⚙  General" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,12"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,6">
                                 <CheckBox IsChecked="{Binding AlwaysOnTop}" VerticalAlignment="Center"/>
-                                <TextBlock Text="Always on Top" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Always on Top" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,6">
                                 <CheckBox IsChecked="{Binding LaunchOnStartup}" VerticalAlignment="Center"/>
-                                <TextBlock Text="Launch on Startup" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Launch on Startup" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,6">
                                 <CheckBox IsChecked="{Binding StartMinimized}" VerticalAlignment="Center"/>
-                                <TextBlock Text="Start Minimized" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Start Minimized" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0,6">
                                 <CheckBox IsChecked="{Binding ClickThroughEnabled}" VerticalAlignment="Center"/>
-                                <TextBlock Text="Click-Through Overlay" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Click-Through Overlay" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -338,16 +774,16 @@
                     <!-- Monitoring section -->
                     <Border Style="{StaticResource Card}">
                         <StackPanel>
-                            <TextBlock Text="📡  Monitoring" FontSize="15" FontWeight="SemiBold" Foreground="#E6EDF3" Margin="0,0,0,12"/>
+                            <TextBlock Text="📡  Monitoring" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,12"/>
 
                             <StackPanel Margin="0,6">
-                                <TextBlock Text="Network Adapter" Foreground="#8B949E" FontSize="12" Margin="0,0,0,4"/>
+                                <TextBlock Text="Network Adapter" Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,0,0,4"/>
                                 <ComboBox ItemsSource="{Binding AvailableAdapters}" SelectedItem="{Binding SelectedAdapterName}"
                                           Width="250" HorizontalAlignment="Left" FontSize="13"/>
                             </StackPanel>
 
                             <StackPanel Margin="0,10">
-                                <TextBlock Foreground="#8B949E" FontSize="12" Margin="0,0,0,4">
+                                <TextBlock Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,0,0,4">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="Update Interval: {0} ms">
                                             <Binding Path="UpdateIntervalMs"/>
@@ -359,7 +795,7 @@
                             </StackPanel>
 
                             <StackPanel Margin="0,10">
-                                <TextBlock Foreground="#8B949E" FontSize="12" Margin="0,0,0,4">
+                                <TextBlock Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="0,0,0,4">
                                     <TextBlock.Text>
                                         <MultiBinding StringFormat="Overlay Opacity: {0:P0}">
                                             <Binding Path="BackgroundOpacity"/>
@@ -375,32 +811,32 @@
                     <!-- Alerts section -->
                     <Border Style="{StaticResource Card}">
                         <StackPanel>
-                            <TextBlock Text="🔔  Alerts" FontSize="15" FontWeight="SemiBold" Foreground="#E6EDF3" Margin="0,0,0,12"/>
+                            <TextBlock Text="🔔  Alerts" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" Margin="0,0,0,12"/>
 
                             <StackPanel Orientation="Horizontal" Margin="0,6">
                                 <CheckBox IsChecked="{Binding AlertOnDisconnect}" VerticalAlignment="Center"/>
-                                <TextBlock Text="Alert on Disconnect" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Alert on Disconnect" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                             </StackPanel>
 
                             <StackPanel Margin="0,6">
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding AlertOnSpeedDrop}" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Alert on Speed Drop below" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Alert on Speed Drop below" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                                     <TextBox Text="{Binding SpeedDropThresholdMbps, StringFormat=F1}" Width="60" Margin="8,0,0,0"
-                                             FontSize="13" Background="#21262D" Foreground="#E6EDF3" BorderBrush="#30363D"
+                                             FontSize="13" Background="{DynamicResource InputBg}" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource InputBorder}"
                                              Padding="4,2" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Mbps" Foreground="#8B949E" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Mbps" Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
 
                             <StackPanel Margin="0,6">
                                 <StackPanel Orientation="Horizontal">
                                     <CheckBox IsChecked="{Binding AlertOnDataCap}" VerticalAlignment="Center"/>
-                                    <TextBlock Text="Alert when daily usage exceeds" Foreground="#C9D1D9" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="Alert when daily usage exceeds" Foreground="{DynamicResource TextPrimary}" FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
                                     <TextBox Text="{Binding DailyDataCapGB, StringFormat=F1}" Width="60" Margin="8,0,0,0"
-                                             FontSize="13" Background="#21262D" Foreground="#E6EDF3" BorderBrush="#30363D"
+                                             FontSize="13" Background="{DynamicResource InputBg}" Foreground="{DynamicResource TextPrimary}" BorderBrush="{DynamicResource InputBorder}"
                                              Padding="4,2" VerticalAlignment="Center"/>
-                                    <TextBlock Text="GB" Foreground="#8B949E" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="GB" Foreground="{DynamicResource TextSecondary}" FontSize="12" Margin="6,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -410,24 +846,10 @@
                     <Border Style="{StaticResource Card}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="💾  Save Settings" Command="{Binding SaveSettingsCommand}"
-                                    Background="#238636" Foreground="White" FontSize="13" FontWeight="SemiBold"
-                                    Padding="16,8" Cursor="Hand" BorderThickness="0">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Bd" Property="Background" Value="#2EA043"/>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
+                                    Style="{StaticResource ActionButton}" FontSize="13" Padding="16,8"/>
 
                             <Button Content="↩  Reset Defaults" Command="{Binding ResetSettingsCommand}"
-                                    Background="#30363D" Foreground="#C9D1D9" FontSize="13"
+                                    Background="{DynamicResource ButtonHoverBg}" Foreground="{DynamicResource TextPrimary}" FontSize="13"
                                     Padding="16,8" Margin="12,0,0,0" Cursor="Hand" BorderThickness="0">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
@@ -436,14 +858,14 @@
                                         </Border>
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="Bd" Property="Background" Value="#484F58"/>
+                                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource TextMuted}"/>
                                             </Trigger>
                                         </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
 
-                            <TextBlock Text="{Binding SettingsStatus}" Foreground="#00E676" FontSize="13"
+                            <TextBlock Text="{Binding SettingsStatus}" Foreground="{DynamicResource AccentGreen}" FontSize="13"
                                        VerticalAlignment="Center" Margin="16,0,0,0"/>
                         </StackPanel>
                     </Border>

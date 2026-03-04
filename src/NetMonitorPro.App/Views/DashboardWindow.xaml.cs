@@ -12,7 +12,7 @@ public partial class DashboardWindow : Window
 
         Loaded += async (_, _) =>
         {
-            await viewModel.LoadDailyUsageCommand.ExecuteAsync(null);
+            await viewModel.LoadUsageDataCommand.ExecuteAsync(null);
         };
 
         Closing += (_, _) =>

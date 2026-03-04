@@ -44,3 +44,24 @@ public class BooleanToVisibilityConverter : IValueConverter
         return false;
     }
 }
+
+/// <summary>
+/// Shows element when count is 0 (Visible), hides when count > 0.
+/// Used for "empty state" messages.
+/// </summary>
+public class InverseBooleanToVisibilityConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is int count && count > 0)
+            return Visibility.Collapsed;
+        if (value is bool b && b)
+            return Visibility.Collapsed;
+        return Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return DependencyProperty.UnsetValue;
+    }
+}
