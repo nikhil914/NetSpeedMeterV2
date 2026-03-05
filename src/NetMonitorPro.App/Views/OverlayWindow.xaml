@@ -12,9 +12,11 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Window.Resources>
-        <!-- Glow effect for the text -->
-        <DropShadowEffect x:Key="TextGlow" ShadowDepth="0" BlurRadius="8" Color="#00E676" Opacity="0.4"/>
-        <DropShadowEffect x:Key="UploadGlow" ShadowDepth="0" BlurRadius="8" Color="#42A5F5" Opacity="0.4"/>
+        <!-- Glow effects using DynamicResource colors -->
+        <DropShadowEffect x:Key="TextGlow" ShadowDepth="0" BlurRadius="8"
+                          Color="{DynamicResource OverlayDownloadGlowColor}" Opacity="0.4"/>
+        <DropShadowEffect x:Key="UploadGlow" ShadowDepth="0" BlurRadius="8"
+                          Color="{DynamicResource OverlayUploadGlowColor}" Opacity="0.4"/>
 
         <!-- Context menu style -->
         <Style TargetType="MenuItem">
@@ -43,9 +45,9 @@
             Opacity="{Binding BackgroundOpacity}">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#1A1A2E" Offset="0"/>
-                <GradientStop Color="#16213E" Offset="0.5"/>
-                <GradientStop Color="#0F3460" Offset="1"/>
+                <GradientStop Color="{DynamicResource OverlayGradientStart}" Offset="0"/>
+                <GradientStop Color="{DynamicResource OverlayGradientMid}" Offset="0.5"/>
+                <GradientStop Color="{DynamicResource OverlayGradientEnd}" Offset="1"/>
             </LinearGradientBrush>
         </Border.Background>
         <Border.Effect>
@@ -55,30 +57,34 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <!-- Download speed -->
             <StackPanel Orientation="Horizontal" Margin="0,0,12,0">
-                <TextBlock Text="↓" FontSize="14" FontWeight="Bold" Foreground="#00E676"
+                <TextBlock Text="↓" FontSize="14" FontWeight="Bold"
+                           Foreground="{DynamicResource OverlayDownloadColor}"
                            VerticalAlignment="Center" Margin="0,0,4,0"
                            Effect="{StaticResource TextGlow}"/>
                 <TextBlock Text="{Binding DownloadValue}" FontSize="14" FontWeight="Bold"
-                           Foreground="#00E676" VerticalAlignment="Center"
+                           Foreground="{DynamicResource OverlayDownloadColor}" VerticalAlignment="Center"
                            FontFamily="Cascadia Code, Consolas, Segoe UI"/>
-                <TextBlock Text="{Binding DownloadUnit}" FontSize="9" Foreground="#80E6A0"
+                <TextBlock Text="{Binding DownloadUnit}" FontSize="9"
+                           Foreground="{DynamicResource OverlayDownloadUnitColor}"
                            VerticalAlignment="Center" Margin="3,2,0,0"
                            FontFamily="Segoe UI"/>
             </StackPanel>
 
             <!-- Separator -->
-            <Border Width="1" Height="18" Background="#334466" Margin="0,0,12,0"
+            <Border Width="1" Height="18" Background="{DynamicResource OverlaySeparator}" Margin="0,0,12,0"
                     VerticalAlignment="Center"/>
 
             <!-- Upload speed -->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="↑" FontSize="14" FontWeight="Bold" Foreground="#42A5F5"
+                <TextBlock Text="↑" FontSize="14" FontWeight="Bold"
+                           Foreground="{DynamicResource OverlayUploadColor}"
                            VerticalAlignment="Center" Margin="0,0,4,0"
                            Effect="{StaticResource UploadGlow}"/>
                 <TextBlock Text="{Binding UploadValue}" FontSize="14" FontWeight="Bold"
-                           Foreground="#42A5F5" VerticalAlignment="Center"
+                           Foreground="{DynamicResource OverlayUploadColor}" VerticalAlignment="Center"
                            FontFamily="Cascadia Code, Consolas, Segoe UI"/>
-                <TextBlock Text="{Binding UploadUnit}" FontSize="9" Foreground="#80B0E0"
+                <TextBlock Text="{Binding UploadUnit}" FontSize="9"
+                           Foreground="{DynamicResource OverlayUploadUnitColor}"
                            VerticalAlignment="Center" Margin="3,2,0,0"
                            FontFamily="Segoe UI"/>
             </StackPanel>

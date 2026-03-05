@@ -7,5 +7,43 @@
         <converters:PageVisibilityConverter x:Key="PageVisConverter"/>
         <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+
+        <!-- Theme brushes (defaults = Dark theme, overridden at runtime by ThemeService) -->
+        <SolidColorBrush x:Key="WindowBg" Color="#0D1117"/>
+        <SolidColorBrush x:Key="SidebarBg" Color="#0D1117"/>
+        <SolidColorBrush x:Key="SidebarBorder" Color="#21262D"/>
+        <SolidColorBrush x:Key="CardBg" Color="#161B22"/>
+        <SolidColorBrush x:Key="MiniCardBg" Color="#1C2333"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#E6EDF3"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#8B949E"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#484F58"/>
+        <SolidColorBrush x:Key="AccentGreen" Color="#00E676"/>
+        <SolidColorBrush x:Key="AccentBlue" Color="#42A5F5"/>
+        <SolidColorBrush x:Key="AccentPurple" Color="#BB86FC"/>
+        <SolidColorBrush x:Key="AccentOrange" Color="#FF7043"/>
+        <SolidColorBrush x:Key="AccentYellow" Color="#FFD54F"/>
+        <SolidColorBrush x:Key="AccentPink" Color="#CE93D8"/>
+        <SolidColorBrush x:Key="ButtonBg" Color="#21262D"/>
+        <SolidColorBrush x:Key="ButtonHoverBg" Color="#30363D"/>
+        <SolidColorBrush x:Key="ActionBg" Color="#238636"/>
+        <SolidColorBrush x:Key="ActionHoverBg" Color="#2EA043"/>
+        <SolidColorBrush x:Key="SeparatorColor" Color="#21262D"/>
+        <SolidColorBrush x:Key="SidebarHoverBg" Color="#1C2333"/>
+        <SolidColorBrush x:Key="InputBg" Color="#21262D"/>
+        <SolidColorBrush x:Key="InputBorder" Color="#30363D"/>
+        <SolidColorBrush x:Key="StatusBarBg" Color="#161B22"/>
+
+        <!-- Overlay (floating meter) defaults -->
+        <Color x:Key="OverlayGradientStart">#1A1A2E</Color>
+        <Color x:Key="OverlayGradientMid">#16213E</Color>
+        <Color x:Key="OverlayGradientEnd">#0F3460</Color>
+        <SolidColorBrush x:Key="OverlaySeparator" Color="#334466"/>
+        <SolidColorBrush x:Key="OverlayDownloadColor" Color="#00E676"/>
+        <SolidColorBrush x:Key="OverlayUploadColor" Color="#42A5F5"/>
+        <Color x:Key="OverlayDownloadGlowColor">#00E676</Color>
+        <Color x:Key="OverlayUploadGlowColor">#42A5F5</Color>
+        <SolidColorBrush x:Key="OverlayDownloadUnitColor" Color="#80E6A0"/>
+        <SolidColorBrush x:Key="OverlayUploadUnitColor" Color="#80B0E0"/>
     </Application.Resources>
 </Application>
