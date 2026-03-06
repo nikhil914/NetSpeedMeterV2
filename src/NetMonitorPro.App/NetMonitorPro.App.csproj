@@ -9,6 +9,7 @@
 
     <AssemblyName>NetMonitorPro</AssemblyName>
     <RootNamespace>NetMonitorPro.App</RootNamespace>
+    <ApplicationIcon>..\logo\NetMonitorPro.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <Resource Include="..\logo\Nsm Pro App Logo.png" Link="Assets\Nsm Pro App Logo.png" />
     <Resource Include="..\logo\Nsm tray logo.png" Link="Assets\Nsm tray logo.png" />
+    <Resource Include="..\logo\NetMonitorPro.ico" Link="Assets\NetMonitorPro.ico" />
   </ItemGroup>
 
 </Project>
