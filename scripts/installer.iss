@@ -9,7 +9,7 @@
 ;   - Uses the app logo as installer icon
 
 #define MyAppName "NetMonitorPro"
-#define MyAppVersion "1.0.0"
+#define MyAppVersion "1.2.0"
 #define MyAppPublisher "NetMonitorPro"
 #define MyAppURL "https://github.com/nikhil914/NetSpeedMeterV2"
 #define MyAppExeName "NetMonitorPro.exe"
